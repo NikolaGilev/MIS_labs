@@ -11,6 +11,7 @@ import 'exam-model.dart';
 import 'firebase_options.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    exams = [Exam(subject: 'Math 1', dateTime: DateTime.now().add(const Duration(days: 3))),Exam(subject: 'Math 2', dateTime: DateTime.now().add(const Duration(days: 2)))];
+    exams = [Exam(subject: 'Math 1', dateTime: DateTime.now().add(const Duration(days: 3)), location:const LatLng(41.6086, 21.7453)),Exam(subject: 'Math 2', dateTime: DateTime.now().add(const Duration(days: 2)),location:const LatLng(41.9973, 21.4280))];
     _selectedDay = DateTime.now();
     _calendarController = EventController();
   }
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'your channel name',
       importance: Importance.max,
       priority: Priority.high,
-      showWhen: true,
+      showWhen: false,
       ongoing: true,
 
       styleInformation: BigTextStyleInformation(''),
@@ -240,5 +241,4 @@ class _HomeScreenState extends State<HomeScreen> {
     return exams.where((exam) => _isExamDate(exam.dateTime,date)).toList();
   }
 }
-
 
